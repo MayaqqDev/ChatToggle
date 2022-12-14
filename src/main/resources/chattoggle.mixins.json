@@ -4,9 +4,7 @@
   "package": "dev.mayaqq.chattoggle.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-  ],
-  "client": [
-    "PlayerEntityMixin"
+    "ClientPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
