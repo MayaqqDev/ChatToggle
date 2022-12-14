@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "chattoggle",
+  "version": "${version}",
+  "name": "Chat Toggle",
+  "description": "Adds toggels for chat",
+  "authors": [
+    "Mayaqq"
+  ],
+  "contact": {
+    "website": "https://mayaqq.dev",
+    "repo": "https://github.com/maximusbarcz/chat-toggle"
+  },
+  "license": "LGPL-3.0",
+  "icon": "assets/chattoggle/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "dev.mayaqq.chattoggle.ChatToggle"
+    ],
+    "modmenu": [
+      "dev.mayaqq.chattoggle.integrations.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "chattoggle.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.11",
+    "fabric": "*",
+    "minecraft": "1.19.2"
+  }
+}
