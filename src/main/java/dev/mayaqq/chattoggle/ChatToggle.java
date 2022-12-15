@@ -1,10 +1,9 @@
 package dev.mayaqq.chattoggle;
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 
-public class ChatToggle implements ModInitializer {
+public class ChatToggle implements ClientModInitializer {
     @Override
-    public void onInitialize() {
-
+    public void onInitializeClient() {
     }
 }

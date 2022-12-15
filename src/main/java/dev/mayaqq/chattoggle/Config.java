@@ -21,9 +21,38 @@ public class Config {
 
     public final Path configFile = FabricLoader.getInstance().getConfigDir().resolve("chattoggle.json");
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private final YetAnotherConfigLib config;
 
     public boolean on = true;
-    public String message = "/ftbteams msg ";
+    public String messagePrefix = "/ftbteams msg ";
+
+    public Config() {
+        this.config = YetAnotherConfigLib.createBuilder()
+                .title(Text.of("Chat Toggle"))
+                .category(ConfigCategory.createBuilder()
+                        .name(Text.of("General"))
+                        .option(Option.createBuilder(boolean.class)
+                                .name(Text.of("On"))
+                                .binding(
+                                        true,
+                                        () -> on,
+                                        value -> on = value
+                                )
+                                .controller(TickBoxController::new)
+                                .build())
+                        .option(Option.createBuilder(String.class)
+                                .name(Text.of("Message"))
+                                .binding(
+                                        "Message",
+                                        () -> messagePrefix,
+                                        value -> messagePrefix = value
+                                )
+                                .controller(StringController::new)
+                                .build())
+                        .build())
+                .save(this::save)
+                .build();
+    }
 
     public void save() {
         try {
@@ -31,7 +60,7 @@ public class Config {
 
             JsonObject json = new JsonObject();
             json.addProperty("on", on);
-            json.addProperty("message", message);
+            json.addProperty("message", messagePrefix);
 
             Files.writeString(configFile, gson.toJson(json));
         } catch (IOException e) {
@@ -51,38 +80,13 @@ public class Config {
             if (json.has("on"))
                 on = json.getAsJsonPrimitive("on").getAsBoolean();
             if (json.has("message"))
-                message = json.getAsJsonPrimitive("message").getAsString();
+                messagePrefix = json.getAsJsonPrimitive("message").getAsString();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public Screen makeScreen(Screen parent) {
-        return YetAnotherConfigLib.createBuilder()
-                .title(Text.of("Chat Toggle"))
-                .category(ConfigCategory.createBuilder()
-                        .name(Text.of("General"))
-                        .option(Option.createBuilder(boolean.class)
-                                .name(Text.of("On"))
-                                .binding(
-                                        true,
-                                        () -> on,
-                                        value -> on = value
-                                )
-                                .controller(TickBoxController::new)
-                                .build())
-                        .option(Option.createBuilder(String.class)
-                                .name(Text.of("Message"))
-                                .binding(
-                                        "Message",
-                                        () -> message,
-                                        value -> message = value
-                                )
-                                .controller(StringController::new)
-                                .build())
-                        .build())
-                .save(this::save)
-                .build()
-                .generateScreen(parent);
+        return config.generateScreen(parent);
     }
 }
