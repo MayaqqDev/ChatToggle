@@ -22,11 +22,10 @@ public abstract class ClientPlayerEntityMixin {
     )
     private void onSendMessage(String message, Text preview, CallbackInfo ci) {
         if (Config.INSTANCE.on) {
-            if (!message.startsWith(Config.INSTANCE.messagePrefix)) {
+            if (!message.startsWith("/")) {
                 // call with modified message
                 String modified = Config.INSTANCE.messagePrefix + message;
                 sendCommand(modified, preview);
-
                 // cancel original method
                 ci.cancel();
             }

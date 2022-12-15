@@ -3,13 +3,14 @@
   "id": "chattoggle",
   "version": "${version}",
   "name": "Chat Toggle",
-  "description": "Adds toggels for chat",
+  "description": "Adds toggels for chat, originally made for FTB Teams but can be used in other scenarios as well.",
   "authors": [
-    "Mayaqq"
+    "Mayaqq",
+    "Init"
   ],
   "contact": {
     "website": "https://mayaqq.dev",
-    "repo": "https://github.com/maximusbarcz/chat-toggle"
+    "repo": "https://github.com/Maximusbarcz/ChatToggle/"
   },
   "license": "LGPL-3.0",
   "icon": "assets/chattoggle/icon.png",

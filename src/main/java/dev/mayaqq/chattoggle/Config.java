@@ -23,7 +23,7 @@ public class Config {
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final YetAnotherConfigLib config;
 
-    public boolean on = true;
+    public boolean on = false;
     public String messagePrefix = "/ftbteams msg ";
 
     public Config() {
