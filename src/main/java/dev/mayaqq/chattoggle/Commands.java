@@ -4,13 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientCommandSource;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 
 import java.io.IOException;
@@ -20,26 +20,27 @@ import java.nio.file.Path;
 public class Commands extends ClientCommandSource {
     public static final Path configFile = FabricLoader.getInstance().getConfigDir().resolve("chattoggle.json");
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
     public Commands(ClientPlayNetworkHandler networkHandler, MinecraftClient client) {
         super(networkHandler, client);
     }
 
     public static void register() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             dispatcher.register(
-                    LiteralArgumentBuilder.<ServerCommandSource>literal("chat")
+                    LiteralArgumentBuilder.<FabricClientCommandSource>literal("chat")
                             .executes(
                                     context -> {
-                                        ServerPlayerEntity player = context.getSource().getPlayer();
+                                        PlayerEntity player = context.getSource().getPlayer();
                                         player.sendMessage(Text.of("§f(§5ChatToggle§f) §aTo toggle chat do /chat toggle"), false);
                                         return 1;
                                     }
                             )
                             .then(
-                                    LiteralArgumentBuilder.<ServerCommandSource>literal("toggle")
+                                    LiteralArgumentBuilder.<FabricClientCommandSource>literal("toggle")
                                             .executes(
                                                     context -> {
-                                                        ServerPlayerEntity player = context.getSource().getPlayer();
+                                                        PlayerEntity player = context.getSource().getPlayer();
                                                         if (Config.INSTANCE.on) {
                                                             Config.INSTANCE.on = false;
                                                             save();

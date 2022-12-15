@@ -24,7 +24,7 @@ public class Config {
     private final YetAnotherConfigLib config;
 
     public boolean on = false;
-    public String messagePrefix = "/ftbteams msg ";
+    public String messagePrefix = "ftbteams msg ";
 
     public Config() {
         this.config = YetAnotherConfigLib.createBuilder()
