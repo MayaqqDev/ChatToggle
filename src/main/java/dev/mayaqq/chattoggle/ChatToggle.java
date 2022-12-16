@@ -6,5 +6,6 @@ public class ChatToggle implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         Commands.register();
+        ConfigRegistry.load();
     }
 }

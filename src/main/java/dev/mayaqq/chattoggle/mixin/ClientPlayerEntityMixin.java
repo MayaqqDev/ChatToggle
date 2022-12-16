@@ -1,6 +1,6 @@
 package dev.mayaqq.chattoggle.mixin;
 
-import dev.mayaqq.chattoggle.Config;
+import dev.mayaqq.chattoggle.ConfigRegistry;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
@@ -21,10 +21,10 @@ public abstract class ClientPlayerEntityMixin {
             cancellable = true
     )
     private void onSendMessage(String message, Text preview, CallbackInfo ci) {
-        if (Config.INSTANCE.on) {
+        if (ConfigRegistry.CONFIG.on) {
             if (!message.startsWith("/")) {
                 // call with modified message
-                String modified = Config.INSTANCE.messagePrefix + message;
+                String modified = ConfigRegistry.CONFIG.message + " " + message;
                 sendCommand(modified, preview);
                 // cancel original method
                 ci.cancel();

@@ -3,7 +3,9 @@ package dev.mayaqq.chattoggle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.loader.api.FabricLoader;
@@ -41,12 +43,12 @@ public class Commands extends ClientCommandSource {
                                             .executes(
                                                     context -> {
                                                         PlayerEntity player = context.getSource().getPlayer();
-                                                        if (Config.INSTANCE.on) {
-                                                            Config.INSTANCE.on = false;
+                                                        if (ConfigRegistry.CONFIG.on) {
+                                                            ConfigRegistry.CONFIG.on = false;
                                                             save();
                                                             player.sendMessage(Text.of("§cChat Toggle is now off"), false);
                                                         } else {
-                                                            Config.INSTANCE.on = true;
+                                                            ConfigRegistry.CONFIG.on = true;
                                                             save();
                                                             player.sendMessage(Text.of("§aChat Toggle is now on"), false);
                                                         }
@@ -56,6 +58,13 @@ public class Commands extends ClientCommandSource {
                                                     }
                                             )
                             )
+                            .then(LiteralArgumentBuilder.<FabricClientCommandSource>literal("message")
+                                    .then(ClientCommandManager.argument("target", StringArgumentType.string())
+                                            .executes(context -> {
+                                                ConfigRegistry.CONFIG.message = StringArgumentType.getString(context, "target");
+                                                save();
+                                                return 1;
+                                            })))
             );
         });
     }
@@ -64,8 +73,8 @@ public class Commands extends ClientCommandSource {
             Files.deleteIfExists(configFile);
 
             JsonObject json = new JsonObject();
-            json.addProperty("on", Config.INSTANCE.on);
-            json.addProperty("message", Config.INSTANCE.messagePrefix);
+            json.addProperty("on", ConfigRegistry.CONFIG.on);
+            json.addProperty("message", ConfigRegistry.CONFIG.message);
 
             Files.writeString(configFile, gson.toJson(json));
         } catch (IOException e) {
