@@ -7,5 +7,6 @@ public class ChatToggle implements ClientModInitializer {
     public void onInitializeClient() {
         Commands.register();
         ConfigRegistry.load();
+        Keybinds.registerKeybind();
     }
 }

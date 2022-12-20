@@ -24,7 +24,7 @@
     "chattoggle.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.11",
+    "fabricloader": ">=0.14.10",
     "fabric": "*",
     "minecraft": "1.19.2"
   }
