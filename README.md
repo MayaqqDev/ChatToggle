@@ -9,6 +9,8 @@
 
 Adds toggels for chat, originally made for FTB Teams but can be used in other scenarios as well.
 
+![Showcase](https://raw.githubusercontent.com/Maximusbarcz/ChatToggle/master/showcase.gif)
+
 ## `Community`
 
 If you have any questions or want to follow this project you can join the [Hue Discord Server](https://discord.gg/w7PpGax9Bq)!
