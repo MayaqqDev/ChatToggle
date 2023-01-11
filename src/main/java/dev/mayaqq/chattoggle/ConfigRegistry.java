@@ -40,7 +40,7 @@ public class ConfigRegistry {
     public static class Config {
         //the thing to write in the config file
         public Boolean on = false;
-        public String message = "ftbteams msg";
+        public String message = "/ftbteams msg";
 
         public Config() {}
     }

@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientCommandSource;
@@ -28,45 +25,43 @@ public class Commands extends ClientCommandSource {
     }
 
     public static void register() {
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            dispatcher.register(
-                    LiteralArgumentBuilder.<FabricClientCommandSource>literal("chat")
-                            .executes(
-                                    context -> {
-                                        PlayerEntity player = context.getSource().getPlayer();
-                                        player.sendMessage(Text.of("§f(§5ChatToggle§f) §aTo toggle chat do /chat toggle"), false);
-                                        return 1;
-                                    }
-                            )
-                            .then(
-                                    LiteralArgumentBuilder.<FabricClientCommandSource>literal("toggle")
-                                            .executes(
-                                                    context -> {
-                                                        PlayerEntity player = context.getSource().getPlayer();
-                                                        if (ConfigRegistry.CONFIG.on) {
-                                                            ConfigRegistry.CONFIG.on = false;
-                                                            save();
-                                                            player.sendMessage(Text.of("§cChat Toggle is now off"), false);
-                                                        } else {
-                                                            ConfigRegistry.CONFIG.on = true;
-                                                            save();
-                                                            player.sendMessage(Text.of("§aChat Toggle is now on"), false);
-                                                        }
-
-
-                                                        return 1;
+        ClientCommandManager.DISPATCHER.register(
+                ClientCommandManager.literal("chat")
+                        .executes(
+                                context -> {
+                                    PlayerEntity player = context.getSource().getPlayer();
+                                    player.sendMessage(Text.of("§f(§5ChatToggle§f) §aTo toggle chat do /chat toggle"), false);
+                                    return 1;
+                                }
+                        )
+                        .then(
+                                ClientCommandManager.literal("toggle")
+                                        .executes(
+                                                context -> {
+                                                    PlayerEntity player = context.getSource().getPlayer();
+                                                    if (ConfigRegistry.CONFIG.on) {
+                                                        ConfigRegistry.CONFIG.on = false;
+                                                        save();
+                                                        player.sendMessage(Text.of("§cChat Toggle is now off"), false);
+                                                    } else {
+                                                        ConfigRegistry.CONFIG.on = true;
+                                                        save();
+                                                        player.sendMessage(Text.of("§aChat Toggle is now on"), false);
                                                     }
-                                            )
-                            )
-                            .then(LiteralArgumentBuilder.<FabricClientCommandSource>literal("message")
-                                    .then(ClientCommandManager.argument("target", StringArgumentType.string())
-                                            .executes(context -> {
-                                                ConfigRegistry.CONFIG.message = StringArgumentType.getString(context, "target");
-                                                save();
-                                                return 1;
-                                            })))
-            );
-        });
+
+
+                                                    return 1;
+                                                }
+                                        )
+                        )
+                        .then(ClientCommandManager.literal("message")
+                                .then(ClientCommandManager.argument("message", StringArgumentType.string())
+                                        .executes(context -> {
+                                            ConfigRegistry.CONFIG.message = StringArgumentType.getString(context, "message");
+                                            save();
+                                            return 1;
+                                        })))
+        );
     }
     public static void save() {
         try {
