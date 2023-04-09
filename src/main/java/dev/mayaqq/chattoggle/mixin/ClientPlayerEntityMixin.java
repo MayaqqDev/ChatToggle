@@ -25,6 +25,12 @@ public abstract class ClientPlayerEntityMixin {
             if (!message.startsWith("/")) {
                 // call with modified message
                 String modified = ConfigRegistry.CONFIG.message + " " + message;
+                if (modified.startsWith("/")) {
+                    modified = modified.substring(1);
+                }
+                if (modified.endsWith(" ")) {
+                    modified = modified.substring(0, modified.length() - 1);
+                }
                 sendCommand(modified, preview);
                 // cancel original method
                 ci.cancel();
