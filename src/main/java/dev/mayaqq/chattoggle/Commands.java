@@ -1,24 +1,12 @@
 package dev.mayaqq.chattoggle;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientCommandSource;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class Commands extends ClientCommandSource {
-    public static final Path configFile = FabricLoader.getInstance().getConfigDir().resolve("chattoggle.json");
-    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public Commands(ClientPlayNetworkHandler networkHandler, MinecraftClient client) {
         super(networkHandler, client);
@@ -27,53 +15,15 @@ public class Commands extends ClientCommandSource {
     public static void register() {
         ClientCommandManager.DISPATCHER.register(
                 ClientCommandManager.literal("chat")
-                        .executes(
-                                context -> {
-                                    PlayerEntity player = context.getSource().getPlayer();
-                                    player.sendMessage(Text.of("§f(§5ChatToggle§f) §aTo toggle chat do /chat toggle"), false);
-                                    return 1;
-                                }
-                        )
+                        .executes(ChatCommand::chat)
                         .then(
                                 ClientCommandManager.literal("toggle")
-                                        .executes(
-                                                context -> {
-                                                    PlayerEntity player = context.getSource().getPlayer();
-                                                    if (ConfigRegistry.CONFIG.on) {
-                                                        ConfigRegistry.CONFIG.on = false;
-                                                        save();
-                                                        player.sendMessage(Text.of("§cChat Toggle is now off"), false);
-                                                    } else {
-                                                        ConfigRegistry.CONFIG.on = true;
-                                                        save();
-                                                        player.sendMessage(Text.of("§aChat Toggle is now on"), false);
-                                                    }
-
-
-                                                    return 1;
-                                                }
-                                        )
+                                        .executes(ChatCommand::toggle)
                         )
                         .then(ClientCommandManager.literal("message")
                                 .then(ClientCommandManager.argument("message", StringArgumentType.string())
-                                        .executes(context -> {
-                                            ConfigRegistry.CONFIG.message = StringArgumentType.getString(context, "message");
-                                            save();
-                                            return 1;
-                                        })))
+                                        .executes(ChatCommand::message)
+                                        ))
         );
-    }
-    public static void save() {
-        try {
-            Files.deleteIfExists(configFile);
-
-            JsonObject json = new JsonObject();
-            json.addProperty("on", ConfigRegistry.CONFIG.on);
-            json.addProperty("message", ConfigRegistry.CONFIG.message);
-
-            Files.writeString(configFile, gson.toJson(json));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

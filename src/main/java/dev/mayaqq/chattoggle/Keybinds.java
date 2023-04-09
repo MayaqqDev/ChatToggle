@@ -27,10 +27,10 @@ public class Keybinds {
         ConfigRegistry.load();
         if (ConfigRegistry.CONFIG.on) {
             ConfigRegistry.CONFIG.on = false;
-            client.player.sendMessage(Text.of("§cChat Toggle is now off"), false);
+            client.player.sendMessage(Text.of("§f[§5ChatToggle§f] §cChat Toggle is now off"), false);
         } else {
             ConfigRegistry.CONFIG.on = true;
-            client.player.sendMessage(Text.of("§aChat Toggle is now on"), false);
+            client.player.sendMessage(Text.of("§f[§5ChatToggle§f] §aChat Toggle is now on"), false);
         }
         try {
             ConfigRegistry.saveConfig();
