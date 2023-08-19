@@ -5,12 +5,11 @@
   "name": "Chat Toggle",
   "description": "Adds toggels for chat, originally made for FTB Teams but can be used in other scenarios as well.",
   "authors": [
-    "Mayaqq",
-    "Init"
+    "Mayaqq"
   ],
   "contact": {
     "website": "https://mayaqq.dev",
-    "repo": "https://github.com/Maximusbarcz/ChatToggle/"
+    "repo": "https://github.com/MayaqqDev/ChatToggle/"
   },
   "license": "LGPL-3.0",
   "icon": "assets/chattoggle/icon.png",
@@ -24,8 +23,8 @@
     "chattoggle.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.10",
+    "fabricloader": ">=0.14.21",
     "fabric": "*",
-    "minecraft": "1.19.2"
+    "minecraft": "1.20.1"
   }
 }

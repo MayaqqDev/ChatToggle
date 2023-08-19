@@ -6,18 +6,21 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.*;
 
-public class ConfigRegistry {
+@SuppressWarnings("ResultOfMethodCallIgnored")
+public class ChatToggleConfig {
     public static Config CONFIG = new Config();
 
-    private static File configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(),"chattoggle.json");
+    private static final File configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(),"chattoggle.json");
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    public static void register() {load();}
 
     public static void load() {
 
         if (!configFile.exists()) {
             try {
                 configFile.createNewFile();
-                saveConfig();
+                save();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -30,15 +33,17 @@ public class ConfigRegistry {
         }
     }
 
-    public static void saveConfig() throws IOException {
-        //Write some info into the file under here
-        var writer = new FileWriter(configFile);
-        writer.write(gson.toJson(CONFIG));
-        writer.close();
+    public static void save() {
+        try {
+            var writer = new FileWriter(configFile);
+            writer.write(gson.toJson(CONFIG));
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static class Config {
-        //the thing to write in the config file
         public Boolean on = false;
         public String message = "ftbteams msg";
 
