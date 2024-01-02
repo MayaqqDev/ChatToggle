@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "chattoggle",
+  "version": "${version}",
+  "name": "Chat Toggle",
+  "description": "Makes /ftbteams msg auto prefix in front of your messages (customizable and toggleable)",
+  "authors": [
+    "Mayaqq"
+  ],
+  "contact": {},
+  "license": "GNU LGPL 3.0",
+  "icon": "assets/chattoggle/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "dev.mayaqq.chattoggle.fabric.ChatToggleFabric"
+    ]
+  },
+  "mixins": [
+    "chattoggle-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": ">=1.20.1"
+  }
+}
