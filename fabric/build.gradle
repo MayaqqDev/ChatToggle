@@ -7,6 +7,10 @@ architectury {
     fabric()
 }
 
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+}
+
 configurations {
     common
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
@@ -38,7 +42,7 @@ shadowJar {
 remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier.set(null)
+    archiveClassifier.set("fabric")
 }
 
 jar {

@@ -1,6 +1,5 @@
 package dev.mayaqq.chattoggle;
 
-import dev.mayaqq.chattoggle.extensions.KeyBindingExtension;
 import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
 
@@ -16,7 +15,7 @@ public class ChatToggleKeybinds {
     }
 
     private static void addCategory(String categoryTranslationKey) {
-        Map<String, Integer> map = ((KeyBindingExtension) TOGGLE).chattoggle$getCategoryMap();
+        Map<String, Integer> map = KeyMapping.CATEGORY_SORT_ORDER;
 
         if (map.containsKey(categoryTranslationKey)) {
             return;

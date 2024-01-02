@@ -6,9 +6,20 @@ architectury {
     forge()
 }
 
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    forge {
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+
+        mixinConfig "chattoggle-common.mixins.json"
+    }
+}
+
 configurations {
     common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    shadowCommon
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentForge.extendsFrom common
@@ -27,6 +38,7 @@ processResources {
     filesMatching("META-INF/mods.toml") {
         expand "version": project.version
     }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 shadowJar {
@@ -39,7 +51,7 @@ shadowJar {
 remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier.set(null)
+    archiveClassifier.set("forge")
 }
 
 jar {

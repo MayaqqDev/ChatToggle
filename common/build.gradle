@@ -17,3 +17,7 @@ publishing {
 
     repositories {}
 }
+
+loom {
+    accessWidenerPath = file("src/main/resources/chattoggle.accesswidener")
+}
