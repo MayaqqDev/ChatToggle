@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 public class ChatToggle {
     public static final String MOD_ID = "chattoggle";
+    public static boolean translationsWork = false;
 
     public static Path configFolderPath;
 

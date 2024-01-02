@@ -8,5 +8,6 @@ public class ChatToggleFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         ChatToggle.init(FabricLoader.getInstance().getConfigDir());
+        ChatToggle.translationsWork = FabricLoader.getInstance().isModLoaded("fabric-api");
     }
 }

@@ -8,5 +8,6 @@ import net.minecraftforge.fml.loading.FMLPaths;
 public class ChatToggleForge {
     public ChatToggleForge() {
         ChatToggle.init(FMLPaths.CONFIGDIR.get());
+        ChatToggle.translationsWork = true;
     }
 }
