@@ -34,15 +34,18 @@ dependencies {
 
 processResources {
     inputs.property "version", project.version
+    inputs.property "minecraft_version", rootProject.minecraft_version
 
     filesMatching("META-INF/mods.toml") {
         expand "version": project.version
+        expand "minecraft_version": rootProject.minecraft_version
     }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 shadowJar {
     exclude "fabric.mod.json"
+    exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
     archiveClassifier.set("dev-shadow")
