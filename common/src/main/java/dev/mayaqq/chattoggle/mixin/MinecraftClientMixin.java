@@ -4,6 +4,7 @@ import dev.mayaqq.chattoggle.ChatToggleConfig;
 import dev.mayaqq.chattoggle.ChatToggleKeybinds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,10 +29,10 @@ public class MinecraftClientMixin {
         if (client.player == null) return;
         if (ChatToggleConfig.CONFIG.on) {
             ChatToggleConfig.CONFIG.on = false;
-            client.player.displayClientMessage(Component.literal("§cChat Toggle is now off"), false);
+            client.player.displayClientMessage(new TextComponent("§cChat Toggle is now off"), false);
         } else {
             ChatToggleConfig.CONFIG.on = true;
-            client.player.displayClientMessage(Component.literal("§aChat Toggle is now on"), false);
+            client.player.displayClientMessage(new TextComponent("§aChat Toggle is now on"), false);
         }
         try {
             ChatToggleConfig.save();

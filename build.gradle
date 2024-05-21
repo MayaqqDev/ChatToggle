@@ -1,6 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.1-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.4-SNAPSHOT" apply false
+    id "me.modmuss50.mod-publish-plugin" version "0.4.5"
 }
 
 architectury {
@@ -38,5 +39,56 @@ allprojects {
 
     java {
         withSourcesJar()
+    }
+}
+
+publishMods {
+    changelog = file("CHANGELOG.md").text.replace("@VERSION@", rootProject.mod_version)
+    type = STABLE
+
+    def optionsCurseforge = curseforgeOptions {
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        minecraftVersions.add("1.18.2")
+        projectId = "737481"
+    }
+
+    def optionsModrinth = modrinthOptions {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = "k6aAChpa"
+        minecraftVersions.add("1.18.2")
+    }
+
+    curseforge("curseforgeFabric") {
+        from optionsCurseforge
+        modLoaders.add("fabric")
+        modLoaders.add("quilt")
+        file = project(":fabric").tasks.named("remapJar").get().archiveFile
+        displayName = "Chat Toggle ${rootProject.mod_version} Fabric"
+        version = "${rootProject.mod_version}-fabric"
+    }
+
+    curseforge("curseforgeForge") {
+        from optionsCurseforge
+        modLoaders.add("forge")
+        file = project(":forge").tasks.named("remapJar").get().archiveFile
+        displayName = "Chat Toggle ${rootProject.mod_version} Forge"
+        version = "${rootProject.mod_version}-forge"
+    }
+
+    modrinth("modrinthFabric") {
+        from optionsModrinth
+        modLoaders.add("fabric")
+        modLoaders.add("quilt")
+        file = project(":fabric").tasks.named("remapJar").get().archiveFile
+        displayName = "Chat Toggle ${rootProject.mod_version} Fabric"
+        version = "${rootProject.mod_version}-fabric"
+    }
+
+    modrinth("modrinthForge") {
+        from optionsModrinth
+        modLoaders.add("forge")
+        file = project(":forge").tasks.named("remapJar").get().archiveFile
+        displayName = "Chat Toggle ${rootProject.mod_version} Forge"
+        version = "${rootProject.mod_version}-forge"
     }
 }

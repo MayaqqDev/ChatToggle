@@ -2,7 +2,6 @@ package dev.mayaqq.chattoggle.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
 import dev.mayaqq.chattoggle.commands.ChatToggleCommands;
-import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import org.spongepowered.asm.mixin.Final;
@@ -19,7 +18,7 @@ public abstract class CommandManagerMixin {
     private CommandDispatcher<CommandSourceStack> dispatcher;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void addCommands(Commands.CommandSelection environment, CommandBuildContext registryAccess, CallbackInfo ci) {
-        ChatToggleCommands.register(dispatcher, environment, registryAccess);
+    private void addCommands(CallbackInfo ci) {
+        ChatToggleCommands.register(dispatcher);
     }
 }
