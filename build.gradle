@@ -1,6 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.5-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
+    id "me.modmuss50.mod-publish-plugin" version "0.4.5"
 }
 
 architectury {
@@ -35,10 +36,63 @@ allprojects {
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-        options.release.set(17)
+        options.release.set(21)
     }
 
     java {
         withSourcesJar()
+    }
+}
+
+publishMods {
+    changelog = file("CHANGELOG.md").text.replace("@VERSION@", rootProject.mod_version)
+    type = STABLE
+
+    def optionsCurseforge = curseforgeOptions {
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        println accessToken
+        minecraftVersions.add(rootProject.minecraft_version)
+        projectId = "737481"
+    }
+
+    def optionsModrinth = modrinthOptions {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        println accessToken
+        minecraftVersions.add(rootProject.minecraft_version)
+        projectId = "k6aAChpa"
+    }
+
+    curseforge("curseforgeFabric") {
+        from optionsCurseforge
+        modLoaders.add("fabric")
+        modLoaders.add("quilt")
+        file = project(":fabric").tasks.named("remapJar").get().archiveFile
+        displayName = "Create: Estrogen ${rootProject.mod_version} Fabric"
+        version = "${rootProject.mod_version}-fabric"
+    }
+
+    curseforge("curseforgeNeoForge") {
+        from optionsCurseforge
+        modLoaders.add("neoforge")
+        file = project(":neoforge").tasks.named("remapJar").get().archiveFile
+        displayName = "Create: Estrogen ${rootProject.mod_version} NeoForge"
+        version = "${rootProject.mod_version}-neoforge"
+    }
+
+    modrinth("modrinthFabric") {
+        from optionsModrinth
+        modLoaders.add("fabric")
+        modLoaders.add("quilt")
+        file = project(":fabric").tasks.named("remapJar").get().archiveFile
+        displayName = "Create: Estrogen ${rootProject.mod_version} Fabric"
+        version = "${rootProject.mod_version}-fabric"
+    }
+
+    modrinth("modrinthNeoForge") {
+        from optionsModrinth
+        modLoaders.add("neoforge")
+        file = project(":neoforge").tasks.named("remapJar").get().archiveFile
+        displayName = "Create: Estrogen ${rootProject.mod_version} NeoForge"
+        version = "${rootProject.mod_version}-neoforge"
     }
 }

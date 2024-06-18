@@ -41,6 +41,7 @@ shadowJar {
 
 remapJar {
     inputFile.set shadowJar.archiveFile
+    injectAccessWidener = true
     dependsOn shadowJar
     archiveClassifier.set("fabric")
 }

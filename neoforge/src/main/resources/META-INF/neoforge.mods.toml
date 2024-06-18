@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+# The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
+license = "GNU LGPL 3.0"
+issueTrackerURL = "https://mayaqq/chattoggle/issues"
+[[mods]]
+modId = "chattoggle"
+version = "${version}"
+displayName = "Chat Toggle"
+logoFile = "assets/chattoggle/icon.png"
+authors="Mayaqq"
+description = '''
+Makes /ftbteams msg auto prefix in front of your messages (customizable and toggleable)
+'''
+[[dependencies.chattoggle]] #optional
+# the modid of the dependency
+modId = "neoforge" #mandatory
+# Does this dependency have to exist - if not, ordering below must be specified
+mandatory = true #mandatory
+# The version range of the dependency
+versionRange = "[21,)" #mandatory
+# An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+ordering = "NONE"
+# Side this dependency is applied on - BOTH, CLIENT or SERVER
+side = "CLIENT"
+# Here's another dependency
+[[dependencies.chattoggle]]
+modId = "minecraft"
+mandatory = true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+versionRange = "[1.21,1.22)"
+ordering = "NONE"
+side = "CLIENT"
+[[mixins]]
+config = "chattoggle-common.mixins.json"
