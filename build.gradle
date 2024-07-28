@@ -67,7 +67,7 @@ publishMods {
         modLoaders.add("fabric")
         modLoaders.add("quilt")
         file = project(":fabric").tasks.named("remapJar").get().archiveFile
-        displayName = "Create: Estrogen ${rootProject.mod_version} Fabric"
+        displayName = "Chat Toggle ${rootProject.mod_version} Fabric"
         version = "${rootProject.mod_version}-fabric"
     }
 
@@ -75,7 +75,7 @@ publishMods {
         from optionsCurseforge
         modLoaders.add("neoforge")
         file = project(":neoforge").tasks.named("remapJar").get().archiveFile
-        displayName = "Create: Estrogen ${rootProject.mod_version} NeoForge"
+        displayName = "Chat Toggle ${rootProject.mod_version} NeoForge"
         version = "${rootProject.mod_version}-neoforge"
     }
 
@@ -84,7 +84,7 @@ publishMods {
         modLoaders.add("fabric")
         modLoaders.add("quilt")
         file = project(":fabric").tasks.named("remapJar").get().archiveFile
-        displayName = "Create: Estrogen ${rootProject.mod_version} Fabric"
+        displayName = "Chat Toggle ${rootProject.mod_version} Fabric"
         version = "${rootProject.mod_version}-fabric"
     }
 
@@ -92,7 +92,7 @@ publishMods {
         from optionsModrinth
         modLoaders.add("neoforge")
         file = project(":neoforge").tasks.named("remapJar").get().archiveFile
-        displayName = "Create: Estrogen ${rootProject.mod_version} NeoForge"
+        displayName = "Chat Toggle ${rootProject.mod_version} NeoForge"
         version = "${rootProject.mod_version}-neoforge"
     }
 }
