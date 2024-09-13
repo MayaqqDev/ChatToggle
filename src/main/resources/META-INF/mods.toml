@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+issueTrackerURL = "https://github.com/mayaqqdev/chattoggle/issues"
+license = "LGPL-v3"
+
+[[mods]]
+modId = "${id}"
+version = "${version}"
+displayName = "${name}"
+authors = "Me!"
+description = '''
+Makes /ftbteams msg auto prefix in front of your messages (customizable and toggleable)
+'''
+logoFile = "assets/chattoggle/icon.png"
+
+[["dependencies.${id}"]]
+modId = "forge"
+mandatory = true
+versionRange = "${forgeConstraint}"
+ordering = "NONE"
+side = "BOTH"
+
+[["dependencies.${id}"]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft}"
+ordering = "NONE"
+side = "BOTH"
