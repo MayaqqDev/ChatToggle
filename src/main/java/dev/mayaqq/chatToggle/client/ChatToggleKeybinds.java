@@ -1,41 +1,45 @@
 package dev.mayaqq.chatToggle.client;
 
-//? if fabric {
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import dev.mayaqq.chatToggle.ChatToggle;
 import net.minecraft.client.KeyMapping;
-import org.lwjgl.glfw.GLFW;
 
-//?}
+import org.lwjgl.glfw.GLFW;
+//? if fabric {
+/*import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+*///?}
 //? if forge {
-/*import net.minecraftforge.eventbus.api.SubscribeEvent;
-  import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-  import net.minecraftforge.fml.common.Mod;
- *///?}
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.api.distmarker.Dist;
+@Mod.EventBusSubscriber(modid = ChatToggle.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+ //?}
 //? if neoforge {
 /*import net.neoforged.bus.api.SubscribeEvent;
-  import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-  import net.neoforged.fml.common.Mod;
- *///?}
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+@EventBusSubscriber(modid = ChatToggle.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+*///?}
 //? if forge-like {
-//? @Mod.EventBusSubscriber(modid = Estrogen.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-//? }
+//?}
 public class ChatToggleKeybinds {
 
     public static final KeyMapping TOGGLE = new KeyMapping("key.chattoggle.toggle", GLFW.GLFW_KEY_Y, "key.categories.chattoggle");
 
     //? if forge-like {
-    /*@SubscribeEvent
-     *///?}
+    @SubscribeEvent
+     //?}
     public static void registerKeybindings(
-            //? if forge-like {
+            //? if forge-like && >=1.19.2 {
             /*RegisterKeyMappingsEvent event
              *///?}
     ) {
-        //?if fabric {
-        KeyBindingHelper.registerKeyBinding(TOGGLE);
-        //?}
-        //?if forge-like {
-        /*event.register(TOGGLE);
-         *///?}
+        //? if fabric {
+        /*KeyBindingHelper.registerKeyBinding(TOGGLE);
+        *///?}
+        //? if forge-like  {
+        event.register(TOGGLE);
+         //?}
     }
 }

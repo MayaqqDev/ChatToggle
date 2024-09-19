@@ -11,6 +11,6 @@ public class ChatToggle {
     public static final String VERSION = "5.1.0";
 
     public static void init() {
-
+        ChatToggleConfig.load();
     }
 }

@@ -40,9 +40,13 @@ loom {
 repositories {
     mavenCentral()
     maven("https://maven.neoforged.net/releases/")
+    maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
 }
 
 dependencies {
+
+    var module = "fabric"
+
     mappings(loom.layered {
         // Fabric breaks with parchment for some reason and I CBA to fix it
         // so you're getting raw mojmap unless you want to change it
@@ -58,11 +62,15 @@ dependencies {
     }
     if (isNeoforge) {
         "neoForge"("net.neoforged:neoforge:${deps["neoforge"]}")
+        module = "neoforge"
     }
     if (isForge) {
         "forge"("net.minecraftforge:forge:${deps["forge"]}")
+        module = "forge-latest"
     }
     minecraft("com.mojang:minecraft:${deps["minecraft"]}")
+
+    modRuntimeOnly("me.djtheredstoner:DevAuth-${module}:${deps["devauth"]}")
 }
 
 java {
@@ -112,5 +120,17 @@ if (stonecutter.current.isActive) {
     rootProject.tasks.register("buildActive") {
         group = "project"
         dependsOn(tasks.named("build"))
+    }
+}
+
+loom.runConfigs.all {
+    ideConfigGenerated(true)
+    runDir = "../../run"
+}
+
+if (stonecutter.current.isActive) {
+    rootProject.tasks.register("runActiveClient") {
+        group = "project"
+        dependsOn(tasks.named("runClient"))
     }
 }
