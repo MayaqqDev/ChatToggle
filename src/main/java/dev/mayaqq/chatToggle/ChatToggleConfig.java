@@ -8,12 +8,12 @@ import com.google.gson.GsonBuilder;
 *///?}
 
 //? if neoforge {
-/*import net.neoforged.fml.loading.FMLPaths;
-*///?}
+import net.neoforged.fml.loading.FMLPaths;
+//?}
 
 //? if forge {
-import net.minecraftforge.fml.loading.FMLPaths;
-//?}
+/*import net.minecraftforge.fml.loading.FMLPaths;
+*///?}
 
 import java.io.*;
 

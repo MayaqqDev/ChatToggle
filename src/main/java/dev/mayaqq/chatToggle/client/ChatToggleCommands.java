@@ -9,35 +9,36 @@ import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.mojang.brigadier.tree.RootCommandNode;
 import dev.mayaqq.chatToggle.ChatToggle;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
 //? if fabric {
 /*//? =1.18.2 {
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
+/^import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
-//?} else {
-/^import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+^///?} else {
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-^///?}
+//?}
 *///?}
 //? if neoforge {
-/*import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 
 @EventBusSubscriber(modid = ChatToggle.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
-*///?}
+//?}
 //? if forge {
-import net.minecraftforge.api.distmarker.Dist;
+/*import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ChatToggle.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-//?}
+*///?}
 public class ChatToggleCommands {
     //? if forge-like {
     @SubscribeEvent
@@ -50,12 +51,12 @@ public class ChatToggleCommands {
         //? if fabric {
         /*//? =1.18.2 {
 
-        register(ClientCommandManager.DISPATCHER, new FabricClientCommandManager());
-        //?} else {
-        /^ClientCommandRegistrationCallback.EVENT.register((dispatcherFabric, registryAccess) -> {
+        /^register(ClientCommandManager.DISPATCHER, new FabricClientCommandManager());
+        ^///?} else {
+        ClientCommandRegistrationCallback.EVENT.register((dispatcherFabric, registryAccess) -> {
             register(dispatcherFabric, new FabricClientCommandManager());
         });
-        ^///?}
+        //?}
         *///?}
 
         //? if forge-like {

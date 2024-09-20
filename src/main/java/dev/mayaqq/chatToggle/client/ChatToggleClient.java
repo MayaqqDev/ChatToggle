@@ -7,9 +7,9 @@ public class ChatToggleClient {
         ChatToggleCommands.registerCommands();
         *///?}
         //? if forge {
-        //? =1.18.2 {
-        ChatToggleKeybinds.registerKeybinds();
-        //?}
-        //?}
+        /*//? =1.18.2 {
+        /^ChatToggleKeybinds.registerKeybindings();
+        ^///?}
+        *///?}
     }
 }

@@ -2,7 +2,7 @@ plugins {
     id("dev.kikugie.stonecutter")
     id("dev.architectury.loom") version "1.7-SNAPSHOT" apply false
 }
-stonecutter active "1.18.2-forge" /* [SC] DO NOT EDIT */
+stonecutter active "1.21-neoforge" /* [SC] DO NOT EDIT */
 
 stonecutter registerChiseled tasks.register("chiseledBuildAndCollect", stonecutter.chiseled) {
     group = "project"
